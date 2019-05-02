@@ -11,7 +11,7 @@ public class Start {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("context.xml");
         FileManager fileManager = applicationContext.getBean("fileManager", FileManager.class);
-        fileManager.getExtensionCount("/home");
-        fileManager.getExtensionCount("/home/mike");
+        fileManager.getExtensionCount("/home/mike/файлы");
+        fileManager.getExtensionCount("/home/mike/Documents");
     }
 }

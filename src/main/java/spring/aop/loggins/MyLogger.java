@@ -4,6 +4,9 @@ package spring.aop.loggins;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.Set;
+
 @Component
 
 public class MyLogger {
@@ -12,6 +15,10 @@ public class MyLogger {
         long start = System.currentTimeMillis();
         System.out.println("method begin: " + joinPoint.getSignature().toShortString());
         Object output = null;
+
+        for (Object object : joinPoint.getArgs()) {
+            System.out.println("Param : " + object);
+        }
 
         try {
             output = joinPoint.proceed();
@@ -22,6 +29,27 @@ public class MyLogger {
         System.out.println("method ends: " + joinPoint.getSignature().toShortString()+", time  = " + time + " ms");
 
         return output;
+
+    }
+
+    public void print (Object object) {
+        System.out.println("Print info begin >>");
+
+        if (object instanceof Set) {
+            Set set = (Set) object;
+            for (Object o : set) {
+                System.out.println(object);
+            }
+
+
+        } else if (object instanceof Map) {
+            Map map = (Map) object;
+            for (Object oject : map.keySet()) {
+                System.out.println("key=" + object + ", " + map.get(object));
+            }
+        }
+        System.out.println("Print info end  <<");
+        System.out.println();
 
     }
 

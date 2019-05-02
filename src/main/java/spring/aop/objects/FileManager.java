@@ -20,7 +20,7 @@ public class FileManager {
 
         for (String fileName : dir.list()) {
 
-            File file =  new File(dir.getAbsoluteFile()+"\\" +fileName);
+            File file =  new File(dir.getAbsoluteFile()+"/" +fileName);
 
             int i = fileName.lastIndexOf(".");
             if (file.isFile() && i!=-1) {
