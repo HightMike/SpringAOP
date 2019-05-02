@@ -10,11 +10,7 @@
     <context:component-scan base-package="spring.aop.*"/>
     <aop:config>
         <aop:aspect id="Log" ref="myLogger">
-            <aop:pointcut id="getV" expression="execution(* spring.aop.SomeService.SomeService.*(..))"/>
-            <aop:after-throwing pointcut-ref="getV" method="exept"/>
-            <aop:before pointcut-ref="getV" method="init"/>
-            <aop:after pointcut-ref="getV" method="close"/>
-            <aop:after-returning pointcut-ref="getV" returning="object" method="printValue"/>
+            <aop:around pointcut ="execution(public * *(..))" method="watchTime"/>
         </aop:aspect>
     </aop:config>
     

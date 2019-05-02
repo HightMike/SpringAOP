@@ -2,13 +2,16 @@ package spring.aop.main;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import spring.aop.SomeService.SomeService;
+import spring.aop.objects.FileManager;
+import spring.aop.objects.SomeService;
+
+import java.io.File;
 
 public class Start {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("context.xml");
-        SomeService someService = applicationContext.getBean("someService", SomeService.class);
-        double val = someService.getDoubleValue();
-        someService.divide(5,0);
+        FileManager fileManager = applicationContext.getBean("fileManager", FileManager.class);
+        fileManager.getExtensionCount("/home");
+        fileManager.getExtensionCount("/home/mike");
     }
 }

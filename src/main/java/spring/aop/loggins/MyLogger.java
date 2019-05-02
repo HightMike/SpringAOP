@@ -1,24 +1,28 @@
 package spring.aop.loggins;
 
 
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.stereotype.Component;
 
 @Component
+
 public class MyLogger {
 
-    public void printValue(Object object) {
-        System.out.println(object);
-    }
+    public Object watchTime(ProceedingJoinPoint joinPoint) {
+        long start = System.currentTimeMillis();
+        System.out.println("method begin: " + joinPoint.getSignature().toShortString());
+        Object output = null;
 
-    public void init() {
-        System.out.println("init");
-    }
+        try {
+            output = joinPoint.proceed();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        long time = System.currentTimeMillis() - start;
+        System.out.println("method ends: " + joinPoint.getSignature().toShortString()+", time  = " + time + " ms");
 
-    public void close () {
-        System.out.println("close");
-    }
-    public void exept() {
-        System.out.println("Возникло исключение");
+        return output;
+
     }
 
 }
