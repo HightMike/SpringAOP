@@ -13,4 +13,11 @@ public class SomeService {
     public double getDoubleValue() {
         return 5.6;
     }
+
+    public int divide(int a, int b) {
+
+        int c = a/b;
+        return c;
+
+    }
 }

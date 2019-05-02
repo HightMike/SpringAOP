@@ -9,5 +9,6 @@ public class Start {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("context.xml");
         SomeService someService = applicationContext.getBean("someService", SomeService.class);
         double val = someService.getDoubleValue();
+        someService.divide(5,0);
     }
 }

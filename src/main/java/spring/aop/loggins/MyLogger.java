@@ -17,5 +17,8 @@ public class MyLogger {
     public void close () {
         System.out.println("close");
     }
+    public void exept() {
+        System.out.println("Возникло исключение");
+    }
 
 }
