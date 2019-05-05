@@ -2,6 +2,8 @@ package spring.aop.objects;
 
 
 import org.springframework.stereotype.Component;
+import spring.aop.Interfaces.showResult;
+import spring.aop.Interfaces.showTime;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,6 +15,8 @@ import java.util.TreeSet;
 @Component
 public class FileManager {
 
+    @showTime
+    @showResult
     public Set<String> getExtensionList (String folder) {
         File dir =  new File(folder);
 
@@ -30,7 +34,7 @@ public class FileManager {
         return extList;
     }
 
-
+    @showResult
     public Map<String, Integer> getExtensionCount (String folder) {
 
         File dir = new File (folder);
