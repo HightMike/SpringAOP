@@ -13,10 +13,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 @Component
-public class FileManager implements Manager{
+public class FileManager2{
 
-    @Override
-    public Set<String> getExtensionList(String folder) {
+    public Set<String> getExtensionList (String folder) {
         File dir =  new File(folder);
 
         Set<String> extList =  new TreeSet<String>();
@@ -33,8 +32,8 @@ public class FileManager implements Manager{
         return extList;
     }
 
-    @Override
-    public Map<String, Integer> getExtensionCount(String folder) {
+    public Map<String, Integer> getExtensionCount (String folder) {
+
         File dir = new File (folder);
 
         Map<String, Integer> map = new HashMap<String, Integer>();
@@ -43,5 +42,7 @@ public class FileManager implements Manager{
             map.put(ext, dir.listFiles(filter).length);
         }
         return map;
+
     }
+
 }

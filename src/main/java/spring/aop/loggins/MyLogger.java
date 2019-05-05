@@ -16,13 +16,12 @@ import java.util.Set;
 public class MyLogger {
 
 //    @Pointcut("execution(* *(..)) && within (spring.aop.objects.*)")
-    @Pointcut("execution(* *(..))")
+    @Pointcut("execution(* spring.aop.objects.Manager.*(..))")
     private void allMethods() {
+    };
 
-    }
 
-
-    @Around("allMethods() && @annotation(spring.aop.Interfaces.showTime)")
+    @Around("allMethods()")
     public Object watchTime(ProceedingJoinPoint joinPoint) {
         long start = System.currentTimeMillis();
         System.out.println("method begin: " + joinPoint.getSignature().toShortString());
@@ -45,7 +44,7 @@ public class MyLogger {
     }
 
 
-    @AfterReturning(pointcut = "allMethods() && @annotation(spring.aop.Interfaces.showResult)", returning = "object")
+    @AfterReturning(pointcut = "allMethods()", returning = "object")
     public void print (Object object) {
         System.out.println("Print info begin >>");
 
