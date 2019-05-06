@@ -53,14 +53,14 @@ public class MyLogger {
     }
 
     @SuppressWarnings("rawtypes")
-    @AfterReturning (pointcut = "allset()", returning = "object")
-    public void printMap (Object object) {
+    @AfterReturning (pointcut = "allset() && execution(java.util.Set *(String)) && args(folder) )", returning = "object")
+    public void printMap (Object object, String folder) {
         System.out.println("Print info begin >>");
 
 
             Set set = (Set) object;
             for (Object o : set) {
-                System.out.println(object);
+                System.out.println(o);
             }
 
         System.out.println("Print info end  <<");
@@ -69,13 +69,13 @@ public class MyLogger {
     }
 
     @SuppressWarnings("rawtypes")
-    @AfterReturning (pointcut = "allmap()", returning = "object")
-    public void printSet (Object object) {
+    @AfterReturning (pointcut = "allmap() && execution(java.util.Map *(String)) && args(folder)", returning = "object")
+    public void printSet (Object object, String folder) {
         System.out.println("Print info begin >>");
 
             Map map = (Map) object;
-            for (Object oject : map.keySet()) {
-                System.out.println("key=" + object + ", " + map.get(object));
+            for (Object o : map.keySet()) {
+                System.out.println("key=" + o + ", " + map.get(object));
             }
 
         System.out.println("Print info end  <<");
