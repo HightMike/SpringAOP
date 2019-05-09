@@ -1,4 +1,4 @@
-package spring.aop.main;
+package spring.db.main;
 
 import java.sql.*;
 
