@@ -20,10 +20,11 @@ public class MySqlDAO implements MP3Dao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+
     @Override
     public void insert(MP3 mp3) {
         String sql = "insert into MP3 (author, name) value (?,?);";
-        jdbcTemplate.update(sql, new Object() {mp3.getName(), mp3.getAuthor()});
+        jdbcTemplate.update(sql, new Object[] {mp3.getName(), mp3.getAuthor()});
 
     }
 
