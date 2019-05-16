@@ -5,15 +5,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import spring.db.dao.iml.MySqlDAO;
 import spring.db.dao.objects.MP3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class StartSQLSpring {
 
     public static void main(String[] args) {
         MP3 mp3 = new MP3();
         mp3.setName("Song name");
         mp3.setAuthor("Song Author");
+        MP3 mp32 = new MP3();
+        mp32.setName("Song name");
+        mp32.setAuthor("Song Author");
+
+        List<MP3> list = new ArrayList<>();
+        list.add(mp3);
+        list.add(mp32);
 
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         MySqlDAO mySqlDAO = context.getBean ("MySqlDAO", MySqlDAO.class);
-        mySqlDAO.insert(mp3);
+        mySqlDAO.addMP3List(list);
+
     }
 }

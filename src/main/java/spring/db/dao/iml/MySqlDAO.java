@@ -24,12 +24,32 @@ public class MySqlDAO implements MP3Dao {
     @Override
     public void insert(MP3 mp3) {
         String sql = "insert into MP3 (author, name) value (?,?);";
-        jdbcTemplate.update(sql, new Object[] {mp3.getName(), mp3.getAuthor()});
+        jdbcTemplate.update(sql, mp3.getName(), mp3.getAuthor());
 
     }
 
     @Override
     public void delete(MP3 mp3) {
+
+    }
+
+    @Override
+    public void deleteByID(int id) {
+        String sql = "delete from MP3 where id=?;";
+        jdbcTemplate.update(sql, id);
+
+    }
+
+    @Override
+    public void addMP3List(List<MP3> list) {
+        //String sql = "insert into MP3 (author, name) value (?,?);";
+
+        for(MP3 mp3 : list) {
+
+            //jdbcTemplate.update(sql, mp3.getName(), mp3.getAuthor());
+            insert(mp3);
+
+        }
 
     }
 
