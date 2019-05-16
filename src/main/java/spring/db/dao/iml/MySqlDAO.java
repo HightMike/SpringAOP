@@ -1,9 +1,13 @@
 package spring.db.dao.iml;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import spring.db.dao.interfaces.MP3Dao;
 import spring.db.dao.objects.MP3;
@@ -12,6 +16,8 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 @Component("MySqlDAO")
@@ -26,14 +32,18 @@ public class MySqlDAO implements MP3Dao {
 
 
     @Override
-    public void insert(MP3 mp3) {
+    public int insert(MP3 mp3) {
         String sql = "insert into MP3 (author, name) value (:name, :author)";
+
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("name", mp3.getName());
         params.addValue("author", mp3.getAuthor());
 
-        jdbcTemplate.update(sql, params);
+        jdbcTemplate.update(sql, params, keyHolder);
+        return keyHolder.getKey().intValue();
 
     }
 
@@ -64,12 +74,33 @@ public class MySqlDAO implements MP3Dao {
 
     }
 
+
+
     @Override
     public MP3 getMP3ByID(int id) {
         String sql = "select * from MP3 where id=:id";
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         return jdbcTemplate.queryForObject(sql, params, new MP3RowMapper()); // передаем выборку сюда
+
+    }
+
+    @Override
+    public Map<String, Integer> groupbyAuthor() {
+        String sql = "SELECT author, count(name) as count from MP3 group by author";
+        return jdbcTemplate.query(sql, new ResultSetExtractor<Map<String, Integer>>() {
+            @Override
+            public Map<String, Integer> extractData(ResultSet resultSet) throws SQLException, DataAccessException {
+                Map<String, Integer> map =  new TreeMap<>();
+                while (resultSet.next()){
+                    String author = resultSet.getString("author");
+                    int count = resultSet.getInt("count");
+                    map.put(author,count);
+
+                }
+                return map;
+            }
+        });
 
     }
 

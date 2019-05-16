@@ -12,8 +12,8 @@ public class StartSQLSpring {
 
     public static void main(String[] args) {
         MP3 mp3 = new MP3();
-        mp3.setName("Song name");
-        mp3.setAuthor("Song Author");
+        mp3.setName("Thunder");
+        mp3.setAuthor("ImagineDragons");
         MP3 mp32 = new MP3();
         mp32.setName("Song name");
         mp32.setAuthor("Song Author");
@@ -24,7 +24,7 @@ public class StartSQLSpring {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         MySqlDAO mySqlDAO = context.getBean ("MySqlDAO", MySqlDAO.class);
-        System.out.println(mySqlDAO.getMP3ListByAuthor("Song").size());
+        System.out.println(mySqlDAO.insert(mp3));
 
     }
 }

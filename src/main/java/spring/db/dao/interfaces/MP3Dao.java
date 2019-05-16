@@ -3,10 +3,11 @@ package spring.db.dao.interfaces;
 import spring.db.dao.objects.MP3;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MP3Dao {
 
-    void insert (MP3 mp3);
+    int insert (MP3 mp3);
 
     void delete (MP3 mp3);
 
@@ -15,6 +16,8 @@ public interface MP3Dao {
     void addMP3List (List<MP3> list);
 
     MP3 getMP3ByID (int id);
+
+    Map<String, Integer> groupbyAuthor ();
 
     List<MP3> getMP3ListByName(String name);
 
