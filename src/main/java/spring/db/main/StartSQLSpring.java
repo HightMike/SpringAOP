@@ -24,7 +24,7 @@ public class StartSQLSpring {
 
         ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
         MySqlDAO mySqlDAO = context.getBean ("MySqlDAO", MySqlDAO.class);
-        System.out.println(mySqlDAO.insert(mp3));
+        System.out.println(mySqlDAO.addMP3List(list));
 
     }
 }

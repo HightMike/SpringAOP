@@ -9,6 +9,8 @@ public class mainDB {
     private static final String  PASSWORD = "Drauker111";
 
 
+
+
     public static void main(String[] args) {
 
         try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD); Statement statement = connection.createStatement()) {

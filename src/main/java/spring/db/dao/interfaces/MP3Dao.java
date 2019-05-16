@@ -13,7 +13,7 @@ public interface MP3Dao {
 
     void deleteByID (int id);
 
-    void addMP3List (List<MP3> list);
+    int addMP3List (List<MP3> list);
 
     MP3 getMP3ByID (int id);
 
