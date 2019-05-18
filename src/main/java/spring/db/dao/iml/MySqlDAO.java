@@ -10,6 +10,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSourceUtils;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import spring.db.dao.interfaces.MP3Dao;
 import spring.db.dao.objects.MP3;
 
@@ -26,20 +29,18 @@ public class MySqlDAO implements MP3Dao {
 
     private SimpleJdbcInsert insertmp3;
 
-    private DataSource dataSource;
-
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
 
-        this.dataSource = dataSource;
         this.jdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
         this.insertmp3 = new SimpleJdbcInsert(dataSource).withTableName("MP3").usingColumns("name", "author");
     }
 
 
     @Override
+    @Transactional (propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public int insert(MP3 mp3) {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
